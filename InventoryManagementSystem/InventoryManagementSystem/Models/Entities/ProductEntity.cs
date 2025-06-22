@@ -1,6 +1,6 @@
 namespace InventoryManagementSystem.Models.Entities;
 
-public class ProductEntity : BaseModel
+public class ProductEntity : BaseEntity
 {
     public string Name { get; set; } = string.Empty;
     public required Category Category { get; set; }

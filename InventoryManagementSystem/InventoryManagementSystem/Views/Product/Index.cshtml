@@ -1,0 +1,57 @@
+@using InventoryManagementSystem.Models.Entities
+@model List<InventoryManagementSystem.Models.ViewModels.ProductListViewModel>
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<h2 class="mb-4">Product List</h2>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input type="text" name="productName" class="form-control" placeholder="Search by product name..." />
+    </div>
+    <div class="col-md-4">
+        <select name="category" class="form-select">
+            <option value="">All Category</option>
+            @foreach (var bg in Enum.GetNames(typeof(Category)))
+            {
+                <option value="@bg">@bg</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary w-100">Search</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Category</td>
+                <td>@product.Price</td>
+                <td>@product.Quantity</td>
+                <td>@product.Status</td>
+                <td>
+                    <a asp-action="" asp-route-id="@product.Id" class="btn btn-sm btn-info">View</a>
+                    <a asp-action="" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="" asp-route-id="@product.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
