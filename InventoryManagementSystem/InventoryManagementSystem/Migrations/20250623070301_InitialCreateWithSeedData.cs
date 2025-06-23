@@ -38,8 +38,8 @@ namespace InventoryManagementSystem.Migrations
                 columns: new[] { "Id", "Category", "CreatedAt", "IsDeleted", "Name", "Price", "Quantity", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, 3, new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc), false, "Ice-Cream", 20.00m, 2, new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc) },
-                    { 2, 1, new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc), false, "Punjabi", 1500.00m, 10, new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc) }
+                    { 1, 3, new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc), false, "Ice-Cream", 20m, 2, new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc) },
+                    { 2, 1, new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc), false, "Punjabi", 1500m, 10, new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc) }
                 });
         }
 

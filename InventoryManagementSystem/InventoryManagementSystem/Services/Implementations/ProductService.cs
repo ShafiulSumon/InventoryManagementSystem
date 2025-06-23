@@ -1,6 +1,7 @@
 using InventoryManagementSystem.Data.UnitOfWork;
 using InventoryManagementSystem.Models.Entities;
 using InventoryManagementSystem.Services.Interfaces;
+using InventoryManagementSystem.Services.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagementSystem.Services.Implementations;
@@ -19,12 +20,19 @@ public class ProductService : IProductService
         return await _unitOfWork.ProductRepository.GetAllAsync();
     }
 
-    public async Task<List<ProductEntity>> GetFilteredProductsAsync(Category? category)
+    public async Task<List<ProductEntity>> GetFilteredProductsAsync(FilterProductModel filter)
     {
         var query = _unitOfWork.ProductRepository.Query();
-        if (category != null)
+        query = query.Where(x => !x.IsDeleted);
+        query = query.OrderBy(x => x.Id);
+        if (filter.category != null)
         {
-            query = query.Where(x => x.Category == category);
+            query = query.Where(x => x.Category == filter.category);
+        }
+
+        if (!string.IsNullOrEmpty(filter.search))
+        {
+            query = query.Where(x => x.Name.Contains(filter.search));
         }
 
         return await query.ToListAsync();
@@ -52,7 +60,9 @@ public class ProductService : IProductService
         var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
         if (product != null)
         {
-            _unitOfWork.ProductRepository.Delete(product);
+            // doing soft delete
+            product.IsDeleted = true;
+            _unitOfWork.ProductRepository.Update(product);
             await _unitOfWork.SaveAsync();
         }
     }

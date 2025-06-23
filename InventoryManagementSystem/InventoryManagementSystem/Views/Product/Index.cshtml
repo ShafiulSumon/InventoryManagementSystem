@@ -6,16 +6,22 @@
 
 <h2 class="mb-4">Product List</h2>
 
+<div class="row">
+    <div class="col-md-4 pb-3">
+        <a class="btn btn-primary" asp-controller="Product" asp-action="Create">Add Product</a>
+    </div>
+</div>
+
 <form method="get" class="row g-2 mb-3">
     <div class="col-md-4">
-        <input type="text" name="productName" class="form-control" placeholder="Search by product name..." />
+        <input type="text" name="search" class="form-control" placeholder="Search by product name..." />
     </div>
     <div class="col-md-4">
-        <select name="category" class="form-select">
+        <select name="category" class="form-select" aria-label="All">
             <option value="">All Category</option>
             @foreach (var bg in Enum.GetNames(typeof(Category)))
             {
-                <option value="@bg">@bg</option>
+                <option value="@bg" selected="@(Context.Request.Query["category"] == bg)">@bg</option>
             }
         </select>
     </div>
@@ -43,13 +49,18 @@
                 <td>@product.Id</td>
                 <td>@product.Name</td>
                 <td>@product.Category</td>
-                <td>@product.Price</td>
+                <td>$@product.Price</td>
                 <td>@product.Quantity</td>
-                <td>@product.Status</td>
+                <td><span class="badge @(product.Status switch
+                                       {
+                                           "Out of Stock" => "bg-danger",
+                                           "Low Stock" => "bg-warning",
+                                           _ => "bg-success"
+                                       }) text-white rounded-pill">@product.Status</span></td>
                 <td>
-                    <a asp-action="" asp-route-id="@product.Id" class="btn btn-sm btn-info">View</a>
-                    <a asp-action="" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a asp-action="" asp-route-id="@product.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-sm btn-info">View</a>
+                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
         }

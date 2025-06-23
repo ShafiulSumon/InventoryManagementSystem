@@ -64,7 +64,7 @@ namespace InventoryManagementSystem.Migrations
                             CreatedAt = new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Ice-Cream",
-                            Price = 20.00m,
+                            Price = 20m,
                             Quantity = 2,
                             UpdatedAt = new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
@@ -75,7 +75,7 @@ namespace InventoryManagementSystem.Migrations
                             CreatedAt = new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsDeleted = false,
                             Name = "Punjabi",
-                            Price = 1500.00m,
+                            Price = 1500m,
                             Quantity = 10,
                             UpdatedAt = new DateTime(2025, 6, 22, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
