@@ -32,7 +32,7 @@ public class ProductService : IProductService
 
         if (!string.IsNullOrEmpty(filter.search))
         {
-            query = query.Where(x => x.Name.Contains(filter.search));
+            query = query.Where(x => x.Name.ToLower().Contains(filter.search.ToLower()));
         }
 
         return await query.ToListAsync();

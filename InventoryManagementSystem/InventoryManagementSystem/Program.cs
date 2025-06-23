@@ -1,5 +1,6 @@
 using InventoryManagementSystem.Data;
 using InventoryManagementSystem.Data.UnitOfWork;
+using InventoryManagementSystem.Mapping;
 using InventoryManagementSystem.Repositories.Implementations;
 using InventoryManagementSystem.Repositories.Interfaces;
 using InventoryManagementSystem.Services.Implementations;
@@ -14,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(option => option.UseNpgsql(builder.C
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 

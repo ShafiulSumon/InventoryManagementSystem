@@ -1,3 +1,4 @@
+using AutoMapper;
 using InventoryManagementSystem.Models.Entities;
 using InventoryManagementSystem.Models.ViewModels;
 using InventoryManagementSystem.Services.Interfaces;
@@ -9,35 +10,19 @@ namespace InventoryManagementSystem.Controllers;
 public class ProductController : Controller
 {
     private readonly IProductService _productService;
+    private readonly IMapper _mapper;
 
-    public ProductController(IProductService productService)
+    public ProductController(IProductService productService,  IMapper mapper)
     {
         _productService = productService;
+        _mapper = mapper;
     }
     
     // GET
     public async Task<IActionResult> Index([FromQuery] FilterProductModel filter)
     {
         var products = await _productService.GetFilteredProductsAsync(filter);
-        var productsViewModel = new List<ProductListViewModel>();
-        foreach (var data in products)
-        {
-            string status = data.Quantity switch
-            {
-                0 => "Out of Stock",
-                <= 5 => "Low Stock",
-                _ => "In Stock"
-            };
-            productsViewModel.Add(new ProductListViewModel
-            {
-                Id = data.Id,
-                Name = data.Name,
-                Category = data.Category,
-                Price = data.Price,
-                Quantity = data.Quantity,
-                Status = status
-            });
-        }
+        var productsViewModel = _mapper.Map<List<ProductListViewModel>>(products);
         return View(productsViewModel);
     }
 
